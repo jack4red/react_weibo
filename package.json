@@ -1,0 +1,17 @@
+{
+  "name": "zhoukang",
+  "version": "1.0.0",
+  "description": "微博测试",
+  "scripts": {
+    "test": "weibo"
+  },
+  "keywords": [
+    "zhoukang"
+  ],
+  "author": "zk",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack",
+    "dev": "webpack-dev-server --devtool eval --progress --colors --inline --hot --content-base build --port 8080"
+  }
+}
