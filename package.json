@@ -3,15 +3,21 @@
   "version": "1.0.0",
   "description": "微博测试",
   "scripts": {
-    "test": "weibo"
+    "build": "webpack",
+    "dev": "webpack-dev-server --devtool eval --progress --colors --inline --hot --content-base build --port 8080"
   },
   "keywords": [
     "zhoukang"
   ],
   "author": "zk",
   "license": "MIT",
-  "scripts": {
-    "build": "webpack",
-    "dev": "webpack-dev-server --devtool eval --progress --colors --inline --hot --content-base build --port 8080"
-  }
+  "main": "webpack.config.js",
+  "dependencies": {
+    "babel-preset-react": "^6.3.13",
+    "react": "^0.14.6",
+    "webpack": "^1.12.12",
+    "webpack-dev-server": "^1.14.1",
+    "babel": "^6.3.26"
+  },
+  "devDependencies": {}
 }
