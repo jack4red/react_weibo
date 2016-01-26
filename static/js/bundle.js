@@ -71,7 +71,10 @@
 	var CommentInput = React.createClass({
 	  displayName: 'CommentInput',
 
-	  putvalue: function () {},
+	  putvalue: function () {
+	    WeiboAction.add('contentchange', this.refs.postvalue.value);
+	  },
+
 	  render: function () {
 	    return React.createElement('input', { className: 'Winput', placeholder: '请输入内容', onChange: this.putvalue, ref: 'postvalue' });
 	  }
@@ -79,7 +82,10 @@
 	var SubmitContent = React.createClass({
 	  displayName: 'SubmitContent',
 
-	  weiboPost: function () {},
+	  weiboPost: function () {
+	    var alldata = WeiboStore.getAll();
+	    WeiboAction.postcontent(alldata['contentchange']);
+	  },
 	  render: function () {
 	    return React.createElement(
 	      'button',
@@ -99,7 +105,6 @@
 	  },
 	  dataChanged: function () {
 	    var alldata = WeiboStore.getAll();
-	    console.log(alldata, typeof alldata);
 	    this.setState({ data: alldata['init'] });
 	  },
 	  componentDidMount: function () {
@@ -109,7 +114,6 @@
 	    WeiboStore.unbind('change', this.dataChanged);
 	  },
 	  render: function () {
-	    console.log(this.state.data);
 	    var fffDDD = JSON.parse(this.state.data);
 
 	    var trueData = fffDDD.map(function (singalWeibo) {
@@ -182,6 +186,22 @@
 						eventName: 'init',
 						newItem: { initData: resp.data }
 					});
+				}
+			});
+		},
+		add: function (eventName, newItem) {
+			AppDispatcher.dispatch({
+				eventName: eventName,
+				newItem: newItem
+			});
+		},
+		postcontent: function (postdata) {
+			$.ajax({
+				url: '/postdata',
+				type: 'POST',
+				data: { data: postdata },
+				success: function () {
+					this.contentInit();
 				}
 			});
 		}
@@ -634,6 +654,9 @@
 				WeiboStore.items[payload.eventName] = payload.newItem.initData;
 				WeiboStore.trigger('change');
 				break;
+			case 'contentchange':
+				WeiboStore.items[payload.eventName] = payload.newItem;
+				WeiboStore.trigger('change');
 
 		}
 		return true;

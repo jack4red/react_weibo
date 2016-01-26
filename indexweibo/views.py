@@ -35,3 +35,10 @@ def initdate(request):
 	response = create_response(200)
 	response.data=json.dumps(Date)
 	return response.get_response()
+
+def postdata(request):
+	content=request.POST.get('data')
+	print content,'111'
+	WeiboContent.objects.create(owner_id=1,content=content)
+	response = create_response(200)
+	return response.get_response()

@@ -14,6 +14,22 @@ var WeiboAction = {
         		 });
 	      }
 	    });
+	},
+	add:function(eventName,newItem) {
+		AppDispatcher.dispatch({
+	        	eventName: eventName,
+        		newItem: newItem
+        		 });
+	},
+	postcontent:function(postdata) {
+		$.ajax({
+			url:'/postdata',
+			type:'POST',
+			data:{data:postdata},
+			success:function() {
+				this.contentInit();
+			}
+		})
 	}
 }
 

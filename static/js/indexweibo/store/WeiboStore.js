@@ -23,6 +23,9 @@ ProductDispatcher.register( function( payload ) {
 	      WeiboStore.items[payload.eventName]=payload.newItem.initData;
 	      WeiboStore.trigger('change');
 	      break;
+	    case 'contentchange':
+	      WeiboStore.items[payload.eventName]=payload.newItem;
+	      WeiboStore.trigger('change');
 
 	  }
 	  return true;

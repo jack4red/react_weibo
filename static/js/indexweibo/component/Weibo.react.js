@@ -4,7 +4,9 @@ var WeiboAction = require('../action/WeiboAction');
 var WeiboStore = require('../store/WeiboStore');
 var CommentInput = React.createClass({
   putvalue:function() {
+    WeiboAction.add('contentchange',this.refs.postvalue.value);
   },
+  
       render: function() {
         return (
           <input className="Winput" placeholder="请输入内容" onChange={this.putvalue} ref="postvalue"/>
@@ -13,7 +15,8 @@ var CommentInput = React.createClass({
     });
 var SubmitContent = React.createClass({
   weiboPost:function() {
-    
+    var alldata=WeiboStore.getAll();
+    WeiboAction.postcontent(alldata['contentchange']);
   },
   render:function() {
     return (
@@ -30,7 +33,6 @@ var Content = React.createClass({
   },
   dataChanged:function() {
     var alldata=WeiboStore.getAll();
-    console.log(alldata,typeof alldata);
     this.setState({data:alldata['init']})
   },
   componentDidMount:function() {
