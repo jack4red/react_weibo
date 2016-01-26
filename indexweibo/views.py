@@ -24,12 +24,14 @@ def index(request):
 
 def initdate(request):
 	allContent=WeiboContent.objects.all()
-	weiboDate={}
+	Date=[]
 	for content in allContent:
+		weiboDate={}
 		content_name=WeiboUser.objects.get(id=content.owner_id).name
-		content_content=content.content
-		weiboDate[content_name]=content_content
+		weiboDate['content']=content.content
+		weiboDate['name']=content_name
+		Date.append(weiboDate)
 
 	response = create_response(200)
-	response.data=json.dumps(weiboDate)
+	response.data=json.dumps(Date)
 	return response.get_response()
