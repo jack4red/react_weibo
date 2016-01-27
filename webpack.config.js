@@ -27,5 +27,6 @@ module.exports = {
 			loader: 'style!css' // Run both loaders
 		}],
 		noParse: [pathToReact]
-	}
+	},
+	devtool: 'eval-source-map',
 };
