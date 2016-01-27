@@ -115,7 +115,6 @@
 	  },
 	  render: function () {
 	    var fffDDD = JSON.parse(this.state.data);
-
 	    var trueData = fffDDD.map(function (singalWeibo) {
 	      return React.createElement(
 	        'div',
@@ -132,6 +131,32 @@
 	    );
 	  }
 	});
+	var WeiboLength = React.createClass({
+	  displayName: 'WeiboLength',
+
+	  getInitialState: function () {
+	    return {
+	      data: '[]'
+	    };
+	  },
+	  dataChanged: function () {
+	    var alldata = WeiboStore.getAll();
+	    this.setState({ data: alldata['init'] });
+	  },
+	  componentDidMount: function () {
+	    WeiboStore.bind('change', this.dataChanged);
+	  },
+	  render: function () {
+	    var fffDDD = JSON.parse(this.state.data);
+	    var trueDatalength = fffDDD.length;
+	    return React.createElement(
+	      'div',
+	      null,
+	      trueDatalength,
+	      '个'
+	    );
+	  }
+	});
 	var Container = React.createClass({
 	  displayName: 'Container',
 
@@ -139,6 +164,7 @@
 	    return React.createElement(
 	      'div',
 	      { className: 'container' },
+	      React.createElement(WeiboLength, null),
 	      React.createElement(CommentInput, null),
 	      React.createElement(SubmitContent, null),
 	      React.createElement(Content, null)
@@ -196,12 +222,13 @@
 			});
 		},
 		postcontent: function (postdata) {
+			_this = this;
 			$.ajax({
 				url: '/postdata',
 				type: 'POST',
 				data: { data: postdata },
 				success: function () {
-					this.contentInit();
+					_this.contentInit();
 				}
 			});
 		}

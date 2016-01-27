@@ -12,5 +12,5 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', admin_view.index),
     url(r'^init$', admin_view.initdate),
-    url(r'^postdata/$', admin_view.postdata),
+    url(r'^postdata', admin_view.postdata),
 )

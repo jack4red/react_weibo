@@ -43,7 +43,6 @@ var Content = React.createClass({
   },
   render: function() {
     var fffDDD=JSON.parse(this.state.data);
-
     var trueData=fffDDD.map(function(singalWeibo) {
       return (<div>{singalWeibo['name']},{singalWeibo['content']}</div>)
     })
@@ -51,10 +50,30 @@ var Content = React.createClass({
     
   }
 })
+var WeiboLength=React.createClass({
+  getInitialState:function() {
+    return {
+      data:'[]'
+        }
+  },
+  dataChanged:function() {
+    var alldata=WeiboStore.getAll();
+    this.setState({data:alldata['init']})
+  },
+  componentDidMount:function() {
+    WeiboStore.bind( 'change', this.dataChanged );
+  },
+  render: function() {
+    var fffDDD=JSON.parse(this.state.data);
+    var trueDatalength=fffDDD.length;
+    return (<div>{trueDatalength}个</div>)
+    
+  }
+})
 var Container = React.createClass({
   render:function() {
     return (
-      <div className="container">
+      <div className="container"><WeiboLength />
       <CommentInput />
       <SubmitContent />
       <Content />

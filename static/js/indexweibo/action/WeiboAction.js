@@ -22,12 +22,13 @@ var WeiboAction = {
         		 });
 	},
 	postcontent:function(postdata) {
+		_this=this;
 		$.ajax({
 			url:'/postdata',
 			type:'POST',
 			data:{data:postdata},
 			success:function() {
-				this.contentInit();
+				_this.contentInit();
 			}
 		})
 	}
